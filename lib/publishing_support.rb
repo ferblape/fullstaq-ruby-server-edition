@@ -66,7 +66,7 @@ private
 
 
   def utility_image_name
-    "ghcr.io/fullstaq-ruby/server-edition-ci-images:utility-v#{utility_image_version}"
+    "ghcr.io/ferblape/fullstaq-ruby-server-edition:utility-v#{utility_image_version}"
   end
 
   def utility_image_version

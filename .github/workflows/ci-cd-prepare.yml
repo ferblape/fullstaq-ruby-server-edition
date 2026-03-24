@@ -155,14 +155,14 @@ jobs:
       - name: Build
         run: ./internal-scripts/ci-cd/build-docker-images/build.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'centos-8-v3'
           SOURCE_DIR: 'environments/centos-8'
 
       - name: Dump image
         run: ./internal-scripts/ci-cd/build-docker-images/dump-image.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'centos-8-v3'
       - name: Archive artifact
         run: ./internal-scripts/ci-cd/upload-artifact.sh
@@ -197,14 +197,14 @@ jobs:
       - name: Build
         run: ./internal-scripts/ci-cd/build-docker-images/build.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'debian-11-v4'
           SOURCE_DIR: 'environments/debian-11'
 
       - name: Dump image
         run: ./internal-scripts/ci-cd/build-docker-images/dump-image.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'debian-11-v4'
       - name: Archive artifact
         run: ./internal-scripts/ci-cd/upload-artifact.sh
@@ -239,14 +239,14 @@ jobs:
       - name: Build
         run: ./internal-scripts/ci-cd/build-docker-images/build.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'debian-12-v3'
           SOURCE_DIR: 'environments/debian-12'
 
       - name: Dump image
         run: ./internal-scripts/ci-cd/build-docker-images/dump-image.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'debian-12-v3'
       - name: Archive artifact
         run: ./internal-scripts/ci-cd/upload-artifact.sh
@@ -281,14 +281,14 @@ jobs:
       - name: Build
         run: ./internal-scripts/ci-cd/build-docker-images/build.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'debian-13-v2'
           SOURCE_DIR: 'environments/debian-13'
 
       - name: Dump image
         run: ./internal-scripts/ci-cd/build-docker-images/dump-image.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'debian-13-v2'
       - name: Archive artifact
         run: ./internal-scripts/ci-cd/upload-artifact.sh
@@ -323,14 +323,14 @@ jobs:
       - name: Build
         run: ./internal-scripts/ci-cd/build-docker-images/build.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'el-9-v2'
           SOURCE_DIR: 'environments/el-9'
 
       - name: Dump image
         run: ./internal-scripts/ci-cd/build-docker-images/dump-image.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'el-9-v2'
       - name: Archive artifact
         run: ./internal-scripts/ci-cd/upload-artifact.sh
@@ -365,14 +365,14 @@ jobs:
       - name: Build
         run: ./internal-scripts/ci-cd/build-docker-images/build.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'ubuntu-22.04-v4'
           SOURCE_DIR: 'environments/ubuntu-22.04'
 
       - name: Dump image
         run: ./internal-scripts/ci-cd/build-docker-images/dump-image.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'ubuntu-22.04-v4'
       - name: Archive artifact
         run: ./internal-scripts/ci-cd/upload-artifact.sh
@@ -407,14 +407,14 @@ jobs:
       - name: Build
         run: ./internal-scripts/ci-cd/build-docker-images/build.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'ubuntu-24.04-v2'
           SOURCE_DIR: 'environments/ubuntu-24.04'
 
       - name: Dump image
         run: ./internal-scripts/ci-cd/build-docker-images/dump-image.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'ubuntu-24.04-v2'
       - name: Archive artifact
         run: ./internal-scripts/ci-cd/upload-artifact.sh
@@ -449,14 +449,14 @@ jobs:
       - name: Build
         run: ./internal-scripts/ci-cd/build-docker-images/build.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'utility-v3'
           SOURCE_DIR: 'environments/utility'
 
       - name: Dump image
         run: ./internal-scripts/ci-cd/build-docker-images/dump-image.sh
         env:
-          IMAGE_NAME: 'ghcr.io/fullstaq-ruby/server-edition-ci-images'
+          IMAGE_NAME: 'ghcr.io/ferblape/fullstaq-ruby-server-edition'
           IMAGE_TAG: 'utility-v3'
       - name: Archive artifact
         run: ./internal-scripts/ci-cd/upload-artifact.sh
