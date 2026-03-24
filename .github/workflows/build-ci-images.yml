@@ -30,7 +30,7 @@ jobs:
       - name: Read image tag
         id: tag
         run: |
-          TAG=$(head -1 environments/${{ matrix.env }}/image_tag | grep -v '^#' | tr -d '[:space:]')
+          TAG=$(grep -v '^#' environments/${{ matrix.env }}/image_tag | tr -d '[:space:]' | head -1)
           echo "version=$TAG" >> "$GITHUB_OUTPUT"
 
       - name: Build and push
