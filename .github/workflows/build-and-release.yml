@@ -1,0 +1,178 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ruby_version:
+        description: 'Ruby version to build (e.g. 4.0.2)'
+        required: true
+        default: '4.0.2'
+      ruby_minor_version:
+        description: 'Ruby minor version (e.g. 4.0)'
+        required: true
+        default: '4.0'
+      package_revision:
+        description: 'Package revision number'
+        required: true
+        default: '0'
+      jemalloc_version:
+        description: 'Jemalloc version'
+        required: true
+        default: '3.6.0'
+      create_release:
+        description: 'Create a GitHub Release with the built packages'
+        type: boolean
+        default: true
+
+jobs:
+  build-jemalloc:
+    name: 'Jemalloc [${{ matrix.distro }}]'
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        distro: [ubuntu-22.04, ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Jemalloc source
+        run: |
+          curl -fsSL -o jemalloc-src.tar.bz2 \
+            "https://github.com/jemalloc/jemalloc/releases/download/${{ inputs.jemalloc_version }}/jemalloc-${{ inputs.jemalloc_version }}.tar.bz2"
+
+      - name: Build Jemalloc
+        run: |
+          ./build-jemalloc \
+            -n ${{ matrix.distro }} \
+            -s jemalloc-src.tar.bz2 \
+            -o jemalloc-bin.tar.gz \
+            -j $(nproc)
+
+      - name: Upload Jemalloc binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: jemalloc-bin-${{ matrix.distro }}
+          path: jemalloc-bin.tar.gz
+
+  build-ruby:
+    name: 'Ruby [${{ matrix.distro }}/${{ matrix.variant }}]'
+    needs: build-jemalloc
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        distro: [ubuntu-22.04, ubuntu-24.04]
+        variant: [normal, jemalloc]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Ruby source
+        run: |
+          curl -fsSL -o ruby-src.tar.gz \
+            "https://cache.ruby-lang.org/pub/ruby/${{ inputs.ruby_minor_version }}/ruby-${{ inputs.ruby_version }}.tar.gz"
+
+      - name: Download Jemalloc binary
+        if: matrix.variant == 'jemalloc'
+        uses: actions/download-artifact@v4
+        with:
+          name: jemalloc-bin-${{ matrix.distro }}
+
+      - name: Build Ruby
+        run: |
+          JEMALLOC_ARGS=""
+          if [ "${{ matrix.variant }}" = "jemalloc" ]; then
+            JEMALLOC_ARGS="-m jemalloc-bin.tar.gz"
+          fi
+          ./build-ruby \
+            -n ${{ matrix.distro }} \
+            -s ruby-src.tar.gz \
+            -v ${{ inputs.ruby_version }} \
+            -o ruby-bin.tar.gz \
+            $JEMALLOC_ARGS \
+            -j $(nproc)
+
+      - name: Package as .deb
+        run: |
+          VARIANT_SUFFIX=""
+          if [ "${{ matrix.variant }}" != "normal" ]; then
+            VARIANT_SUFFIX="-${{ matrix.variant }}"
+          fi
+          ./build-ruby-deb \
+            -b ruby-bin.tar.gz \
+            -o "fullstaq-ruby-${{ inputs.ruby_version }}${VARIANT_SUFFIX}_${{ inputs.package_revision }}-${{ matrix.distro }}_amd64.deb" \
+            -r ${{ inputs.package_revision }}
+
+      - name: Upload .deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: ruby-deb-${{ matrix.distro }}-${{ matrix.variant }}
+          path: '*.deb'
+
+  build-common:
+    name: 'Common packages'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build common .deb
+        run: ./build-common-deb -o fullstaq-ruby-common_1.0-1_all.deb -v 1.0 -r 1
+
+      - name: Clone Rbenv
+        run: git clone --depth 1 https://github.com/fullstaq-ruby/rbenv.git rbenv-src
+
+      - name: Build Rbenv .deb
+        run: |
+          RBENV_VERSION=$(cd rbenv-src && bin/rbenv --version | awk '{ print $2 }' | sed -E 's/(.+)-.*/\1/')
+          ./build-rbenv-deb \
+            -s rbenv-src \
+            -o "fullstaq-rbenv_${RBENV_VERSION}-1_all.deb" \
+            -n "$RBENV_VERSION" \
+            -r 1
+
+      - name: Upload common packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: common-debs
+          path: '*.deb'
+
+  release:
+    name: 'Create GitHub Release'
+    if: inputs.create_release
+    needs: [build-ruby, build-common]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: List packages
+        run: find artifacts -name '*.deb' -o -name '*.deb' | sort
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ inputs.ruby_version }}-rev${{ inputs.package_revision }}"
+          name: "Fullstaq Ruby ${{ inputs.ruby_version }} (revision ${{ inputs.package_revision }})"
+          body: |
+            Fullstaq Ruby ${{ inputs.ruby_version }} packages for Ubuntu.
+
+            ## Packages included
+            - **Ubuntu 22.04**: normal and jemalloc variants
+            - **Ubuntu 24.04**: normal and jemalloc variants
+            - **fullstaq-ruby-common**: shared support files
+            - **fullstaq-rbenv**: Ruby version manager
+
+            ## Installation
+            ```bash
+            # Download packages for your distro (e.g. ubuntu-22.04)
+            gh release download v${{ inputs.ruby_version }}-rev${{ inputs.package_revision }} \
+              --repo ${{ github.repository }} \
+              --pattern "*ubuntu-22.04*" --pattern "*common*" --pattern "*rbenv*"
+
+            # Install
+            sudo dpkg -i fullstaq-ruby-common_*.deb fullstaq-rbenv_*.deb fullstaq-ruby-*.deb
+            ```
+          files: artifacts/*.deb
+          fail_on_unmatched_files: true
