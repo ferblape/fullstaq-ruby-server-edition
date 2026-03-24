@@ -15,7 +15,7 @@ function usage()
 	echo "<ENV> is the name of a subdirectory in environments/, such as 'ubuntu-22.04'."
 	echo
 	echo "This script will produce a Docker image called"
-	echo "'ghcr.io/fullstaq-ruby/server-edition-ci-images:<ENV>-v<VERSION>'."
+	echo "'ghcr.io/ferblape/fullstaq-ruby-server-edition:<ENV>-v<VERSION>'."
 	echo
 	echo "Optional options:"
 	echo "  -h         Show usage"
@@ -54,7 +54,7 @@ function parse_options()
 parse_options "$@"
 
 ENV="$1"
-IMAGE_NAME=ghcr.io/fullstaq-ruby/server-edition-ci-images
+IMAGE_NAME=ghcr.io/ferblape/fullstaq-ruby-server-edition
 IMAGE_VERSION=$(read_single_value_file "$SELFDIR/environments/$ENV/image_tag")
 
 if [[ ! -e "$SELFDIR/environments/$ENV" ]]; then
