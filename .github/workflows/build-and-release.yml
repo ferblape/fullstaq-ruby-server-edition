@@ -28,11 +28,20 @@ jobs:
   build-jemalloc:
     name: 'Jemalloc [${{ matrix.distro }}]'
     runs-on: ubuntu-24.04
+    permissions:
+      packages: read
     strategy:
       matrix:
         distro: [ubuntu-22.04, ubuntu-24.04]
     steps:
       - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download Jemalloc source
         run: |
@@ -57,12 +66,21 @@ jobs:
     name: 'Ruby [${{ matrix.distro }}/${{ matrix.variant }}]'
     needs: build-jemalloc
     runs-on: ubuntu-24.04
+    permissions:
+      packages: read
     strategy:
       matrix:
         distro: [ubuntu-22.04, ubuntu-24.04]
         variant: [normal, jemalloc]
     steps:
       - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download Ruby source
         run: |
@@ -109,8 +127,17 @@ jobs:
   build-common:
     name: 'Common packages'
     runs-on: ubuntu-24.04
+    permissions:
+      packages: read
     steps:
       - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build common .deb
         run: ./build-common-deb -o fullstaq-ruby-common_1.0-1_all.deb -v 1.0 -r 1
