@@ -131,7 +131,7 @@ jobs:
       - name: Fetch Ruby source
         run: ./internal-scripts/ci-cd/download-artifact.sh
         env:
-          ARTIFACT_NAME: ruby-src-4.0.2
+          ARTIFACT_NAME: ruby-src-4.0.3
           ARTIFACT_PATH: .
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
@@ -230,7 +230,7 @@ jobs:
       - name: Fetch Ruby source
         run: ./internal-scripts/ci-cd/download-artifact.sh
         env:
-          ARTIFACT_NAME: ruby-src-4.0.2
+          ARTIFACT_NAME: ruby-src-4.0.3
           ARTIFACT_PATH: .
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
@@ -329,7 +329,7 @@ jobs:
       - name: Fetch Ruby source
         run: ./internal-scripts/ci-cd/download-artifact.sh
         env:
-          ARTIFACT_NAME: ruby-src-4.0.2
+          ARTIFACT_NAME: ruby-src-4.0.3
           ARTIFACT_PATH: .
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
@@ -968,8 +968,8 @@ jobs:
           ARTIFACT_PATH: output-malloctrim
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
-  build_ruby_debian_13-4_0_2-normal:
-    name: 'Ruby [debian-13/4.0.2/normal]'
+  build_ruby_debian_13-4_0_3-normal:
+    name: 'Ruby [debian-13/4.0.3/normal]'
 
     runs-on: ubuntu-24.04
     environment: test
@@ -979,7 +979,7 @@ jobs:
       packages: read
     # Run even if a dependent job has been skipped
     if: |
-      contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.2/normal];')
+      contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.3/normal];')
       && !failure() && !cancelled()
     steps:
       
@@ -1004,7 +1004,7 @@ jobs:
       - name: Fetch Ruby source
         run: ./internal-scripts/ci-cd/download-artifact.sh
         env:
-          ARTIFACT_NAME: ruby-src-4.0.2
+          ARTIFACT_NAME: ruby-src-4.0.3
           ARTIFACT_PATH: .
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
@@ -1041,7 +1041,7 @@ jobs:
         env:
           ENVIRONMENT_NAME: "debian-13"
           VARIANT_NAME: "normal"
-          RUBY_PACKAGE_VERSION_ID: "4.0.2"
+          RUBY_PACKAGE_VERSION_ID: "4.0.3"
           CACHE_KEY_PREFIX: "sccache/debian-13"
 
       - name: Build package
@@ -1051,18 +1051,18 @@ jobs:
           VARIANT_NAME: "normal"
           VARIANT_PACKAGE_SUFFIX: ""
           PACKAGE_FORMAT: "DEB"
-          RUBY_PACKAGE_VERSION_ID: "4.0.2"
+          RUBY_PACKAGE_VERSION_ID: "4.0.3"
           RUBY_PACKAGE_REVISION: "0"
 
       - name: Archive package artifact to Google Cloud
         run: ./internal-scripts/ci-cd/upload-artifact.sh
         env:
-          ARTIFACT_NAME: "ruby-pkg_4.0.2_debian-13_normal"
+          ARTIFACT_NAME: "ruby-pkg_4.0.3_debian-13_normal"
           ARTIFACT_PATH: output-normal
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
-  build_ruby_debian_13-4_0_2-jemalloc:
-    name: 'Ruby [debian-13/4.0.2/jemalloc]'
+  build_ruby_debian_13-4_0_3-jemalloc:
+    name: 'Ruby [debian-13/4.0.3/jemalloc]'
 
     needs: build_jemalloc_debian_13
     runs-on: ubuntu-24.04
@@ -1073,7 +1073,7 @@ jobs:
       packages: read
     # Run even if a dependent job has been skipped
     if: |
-      contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.2/jemalloc];')
+      contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.3/jemalloc];')
       && !failure() && !cancelled()
     steps:
       
@@ -1103,7 +1103,7 @@ jobs:
       - name: Fetch Ruby source
         run: ./internal-scripts/ci-cd/download-artifact.sh
         env:
-          ARTIFACT_NAME: ruby-src-4.0.2
+          ARTIFACT_NAME: ruby-src-4.0.3
           ARTIFACT_PATH: .
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
@@ -1146,7 +1146,7 @@ jobs:
         env:
           ENVIRONMENT_NAME: "debian-13"
           VARIANT_NAME: "jemalloc"
-          RUBY_PACKAGE_VERSION_ID: "4.0.2"
+          RUBY_PACKAGE_VERSION_ID: "4.0.3"
           CACHE_KEY_PREFIX: "sccache/debian-13"
 
       - name: Build package
@@ -1156,18 +1156,18 @@ jobs:
           VARIANT_NAME: "jemalloc"
           VARIANT_PACKAGE_SUFFIX: "-jemalloc"
           PACKAGE_FORMAT: "DEB"
-          RUBY_PACKAGE_VERSION_ID: "4.0.2"
+          RUBY_PACKAGE_VERSION_ID: "4.0.3"
           RUBY_PACKAGE_REVISION: "0"
 
       - name: Archive package artifact to Google Cloud
         run: ./internal-scripts/ci-cd/upload-artifact.sh
         env:
-          ARTIFACT_NAME: "ruby-pkg_4.0.2_debian-13_jemalloc"
+          ARTIFACT_NAME: "ruby-pkg_4.0.3_debian-13_jemalloc"
           ARTIFACT_PATH: output-jemalloc
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
-  build_ruby_debian_13-4_0_2-malloctrim:
-    name: 'Ruby [debian-13/4.0.2/malloctrim]'
+  build_ruby_debian_13-4_0_3-malloctrim:
+    name: 'Ruby [debian-13/4.0.3/malloctrim]'
 
     runs-on: ubuntu-24.04
     environment: test
@@ -1177,7 +1177,7 @@ jobs:
       packages: read
     # Run even if a dependent job has been skipped
     if: |
-      contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.2/malloctrim];')
+      contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.3/malloctrim];')
       && !failure() && !cancelled()
     steps:
       
@@ -1202,7 +1202,7 @@ jobs:
       - name: Fetch Ruby source
         run: ./internal-scripts/ci-cd/download-artifact.sh
         env:
-          ARTIFACT_NAME: ruby-src-4.0.2
+          ARTIFACT_NAME: ruby-src-4.0.3
           ARTIFACT_PATH: .
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
@@ -1239,7 +1239,7 @@ jobs:
         env:
           ENVIRONMENT_NAME: "debian-13"
           VARIANT_NAME: "malloctrim"
-          RUBY_PACKAGE_VERSION_ID: "4.0.2"
+          RUBY_PACKAGE_VERSION_ID: "4.0.3"
           CACHE_KEY_PREFIX: "sccache/debian-13"
 
       - name: Build package
@@ -1249,13 +1249,13 @@ jobs:
           VARIANT_NAME: "malloctrim"
           VARIANT_PACKAGE_SUFFIX: "-malloctrim"
           PACKAGE_FORMAT: "DEB"
-          RUBY_PACKAGE_VERSION_ID: "4.0.2"
+          RUBY_PACKAGE_VERSION_ID: "4.0.3"
           RUBY_PACKAGE_REVISION: "0"
 
       - name: Archive package artifact to Google Cloud
         run: ./internal-scripts/ci-cd/upload-artifact.sh
         env:
-          ARTIFACT_NAME: "ruby-pkg_4.0.2_debian-13_malloctrim"
+          ARTIFACT_NAME: "ruby-pkg_4.0.3_debian-13_malloctrim"
           ARTIFACT_PATH: output-malloctrim
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
 
@@ -1863,9 +1863,9 @@ jobs:
       - build_ruby_debian_13-3_3-jemalloc
       - build_ruby_debian_13-3_3-malloctrim
 
-      - build_ruby_debian_13-4_0_2-normal
-      - build_ruby_debian_13-4_0_2-jemalloc
-      - build_ruby_debian_13-4_0_2-malloctrim
+      - build_ruby_debian_13-4_0_3-normal
+      - build_ruby_debian_13-4_0_3-jemalloc
+      - build_ruby_debian_13-4_0_3-malloctrim
 
       - build_ruby_debian_13-3_4_8-normal
       - build_ruby_debian_13-3_4_8-jemalloc
@@ -1915,7 +1915,7 @@ jobs:
       - name: Download Ruby package artifacts from Google Cloud
         run: ./internal-scripts/ci-cd/download-artifacts.sh
         env:
-          ARTIFACT_NAMES: 'ruby-pkg_4.0_debian-13_normal ruby-pkg_4.0_debian-13_jemalloc ruby-pkg_4.0_debian-13_malloctrim ruby-pkg_3.4_debian-13_normal ruby-pkg_3.4_debian-13_jemalloc ruby-pkg_3.4_debian-13_malloctrim ruby-pkg_3.3_debian-13_normal ruby-pkg_3.3_debian-13_jemalloc ruby-pkg_3.3_debian-13_malloctrim ruby-pkg_4.0.2_debian-13_normal ruby-pkg_4.0.2_debian-13_jemalloc ruby-pkg_4.0.2_debian-13_malloctrim ruby-pkg_3.4.8_debian-13_normal ruby-pkg_3.4.8_debian-13_jemalloc ruby-pkg_3.4.8_debian-13_malloctrim ruby-pkg_3.3.10_debian-13_normal ruby-pkg_3.3.10_debian-13_jemalloc ruby-pkg_3.3.10_debian-13_malloctrim'
+          ARTIFACT_NAMES: 'ruby-pkg_4.0_debian-13_normal ruby-pkg_4.0_debian-13_jemalloc ruby-pkg_4.0_debian-13_malloctrim ruby-pkg_3.4_debian-13_normal ruby-pkg_3.4_debian-13_jemalloc ruby-pkg_3.4_debian-13_malloctrim ruby-pkg_3.3_debian-13_normal ruby-pkg_3.3_debian-13_jemalloc ruby-pkg_3.3_debian-13_malloctrim ruby-pkg_4.0.3_debian-13_normal ruby-pkg_4.0.3_debian-13_jemalloc ruby-pkg_4.0.3_debian-13_malloctrim ruby-pkg_3.4.8_debian-13_normal ruby-pkg_3.4.8_debian-13_jemalloc ruby-pkg_3.4.8_debian-13_malloctrim ruby-pkg_3.3.10_debian-13_normal ruby-pkg_3.3.10_debian-13_jemalloc ruby-pkg_3.3.10_debian-13_malloctrim'
           ARTIFACT_PATH: artifacts
           CLEAR: true
           CI_ARTIFACTS_BUCKET: ${{ vars.CI_ARTIFACTS_BUCKET }}
@@ -1973,23 +1973,23 @@ jobs:
           name: ruby-pkg_3.3_debian-13_malloctrim
           path: artifacts/ruby-pkg_3.3_debian-13_malloctrim
           compression-level: 0
-      - name: Archive Ruby package artifact [ruby-pkg_4.0.2_debian-13_normal] to Github
+      - name: Archive Ruby package artifact [ruby-pkg_4.0.3_debian-13_normal] to Github
         uses: actions/upload-artifact@v4
         with:
-          name: ruby-pkg_4.0.2_debian-13_normal
-          path: artifacts/ruby-pkg_4.0.2_debian-13_normal
+          name: ruby-pkg_4.0.3_debian-13_normal
+          path: artifacts/ruby-pkg_4.0.3_debian-13_normal
           compression-level: 0
-      - name: Archive Ruby package artifact [ruby-pkg_4.0.2_debian-13_jemalloc] to Github
+      - name: Archive Ruby package artifact [ruby-pkg_4.0.3_debian-13_jemalloc] to Github
         uses: actions/upload-artifact@v4
         with:
-          name: ruby-pkg_4.0.2_debian-13_jemalloc
-          path: artifacts/ruby-pkg_4.0.2_debian-13_jemalloc
+          name: ruby-pkg_4.0.3_debian-13_jemalloc
+          path: artifacts/ruby-pkg_4.0.3_debian-13_jemalloc
           compression-level: 0
-      - name: Archive Ruby package artifact [ruby-pkg_4.0.2_debian-13_malloctrim] to Github
+      - name: Archive Ruby package artifact [ruby-pkg_4.0.3_debian-13_malloctrim] to Github
         uses: actions/upload-artifact@v4
         with:
-          name: ruby-pkg_4.0.2_debian-13_malloctrim
-          path: artifacts/ruby-pkg_4.0.2_debian-13_malloctrim
+          name: ruby-pkg_4.0.3_debian-13_malloctrim
+          path: artifacts/ruby-pkg_4.0.3_debian-13_malloctrim
           compression-level: 0
       - name: Archive Ruby package artifact [ruby-pkg_3.4.8_debian-13_normal] to Github
         uses: actions/upload-artifact@v4
@@ -2069,15 +2069,15 @@ jobs:
             || (needs.build_ruby_debian_13-3_3-malloctrim.result != 'success'
               && (needs.build_ruby_debian_13-3_3-malloctrim.result != 'skipped'
                 || contains(inputs.necessary_jobs, ';Build Ruby [debian-13/3.3/malloctrim];')))
-            || (needs.build_ruby_debian_13-4_0_2-normal.result != 'success'
-              && (needs.build_ruby_debian_13-4_0_2-normal.result != 'skipped'
-                || contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.2/normal];')))
-            || (needs.build_ruby_debian_13-4_0_2-jemalloc.result != 'success'
-              && (needs.build_ruby_debian_13-4_0_2-jemalloc.result != 'skipped'
-                || contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.2/jemalloc];')))
-            || (needs.build_ruby_debian_13-4_0_2-malloctrim.result != 'success'
-              && (needs.build_ruby_debian_13-4_0_2-malloctrim.result != 'skipped'
-                || contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.2/malloctrim];')))
+            || (needs.build_ruby_debian_13-4_0_3-normal.result != 'success'
+              && (needs.build_ruby_debian_13-4_0_3-normal.result != 'skipped'
+                || contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.3/normal];')))
+            || (needs.build_ruby_debian_13-4_0_3-jemalloc.result != 'success'
+              && (needs.build_ruby_debian_13-4_0_3-jemalloc.result != 'skipped'
+                || contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.3/jemalloc];')))
+            || (needs.build_ruby_debian_13-4_0_3-malloctrim.result != 'success'
+              && (needs.build_ruby_debian_13-4_0_3-malloctrim.result != 'skipped'
+                || contains(inputs.necessary_jobs, ';Build Ruby [debian-13/4.0.3/malloctrim];')))
             || (needs.build_ruby_debian_13-3_4_8-normal.result != 'success'
               && (needs.build_ruby_debian_13-3_4_8-normal.result != 'skipped'
                 || contains(inputs.necessary_jobs, ';Build Ruby [debian-13/3.4.8/normal];')))

@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       ruby_version:
-        description: 'Ruby version to build (e.g. 4.0.2)'
+        description: 'Ruby version to build (e.g. 4.0.3)'
         required: true
-        default: '4.0.2'
+        default: '4.0.3'
       ruby_minor_version:
         description: 'Ruby minor version (e.g. 4.0)'
         required: true
